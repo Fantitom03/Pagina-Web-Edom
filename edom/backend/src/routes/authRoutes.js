@@ -1,12 +1,11 @@
-const express = require('express');
-const router  = express.Router();
-const authCtrl= require('../controllers/authController');
+import express from 'express';
+import { register, login } from '../controllers/authController.js';
+import { registerValidation, loginValidation } from '../validations/authValidations.js';
+import { authenticateToken, authorize } from '../middleware/authMiddleware.js';
 
-// Registro y login normal
-router.post('/register', authCtrl.register);
-router.post('/login', authCtrl.login);
+const router = express.Router();
 
-// Asignar rol de “seller” (solo admin)
-router.put('/assign-role', authCtrl.authenticate, authCtrl.authorize('admin'), authCtrl.assignRole);
+router.post('/register', registerValidation, register);
+router.post('/login', loginValidation, login);
 
-module.exports = router;
+export default router;

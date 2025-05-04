@@ -1,41 +1,34 @@
-const Item = require('../models/Item');
+import ItemRepository from '../repositories/ItemRepository.js';
 
 class ItemService {
-    async list(page = 1, limit = 10) {
-        const skip = (page - 1) * limit;
-        const items = await Item.find().skip(skip).limit(limit);
-        const total = await Item.countDocuments();
+    constructor(repository) {
+        this.repository = repository;
+    }
 
-        return { items, pagination: { page, totalPages: Math.ceil(total / limit), total } };
+    async list(page, limit) {
+        return this.repository.list(page, limit);
     }
 
     async getById(id) {
-        const item = await Item.findById(id);
-        if (!item) throw new Error('Item no encontrado');
-
-        return item;
+        return this.repository.getById(id);
     }
 
     async create(data) {
-        const item = new Item(data);
-        await item.save();
-
-        return item;
+        return this.repository.create(data);
     }
 
     async update(id, data) {
-        const item = await Item.findByIdAndUpdate(id, data, { new: true });
-        if (!item) throw new Error('Item no encontrado');
-
-        return item;
+        return this.repository.update(id, data);
     }
 
     async delete(id) {
-        const item = await Item.findByIdAndDelete(id);
-        if (!item) throw new Error('Item no encontrado');
-        
-        return item;
+        return this.repository.delete(id);
+    }
+
+    async search(filters) {
+        return this.repository.search(filters);
     }
 }
 
-module.exports = new ItemService();
+// Inyección de dependencia
+export default new ItemService(new ItemRepository());

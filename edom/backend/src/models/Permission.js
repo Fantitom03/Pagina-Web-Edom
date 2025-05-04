@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 const { Schema } = mongoose;
 
 const permissionSchema = new Schema({
@@ -6,4 +6,4 @@ const permissionSchema = new Schema({
   description: { type: String }
 });
 
-module.exports = mongoose.model('Permission', permissionSchema);
+export default mongoose.model('Permission', permissionSchema);

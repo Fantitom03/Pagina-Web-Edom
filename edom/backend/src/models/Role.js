@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 const { Schema } = mongoose;
 
 const roleSchema = new Schema({
@@ -7,4 +7,4 @@ const roleSchema = new Schema({
   permissions: [{ type: Schema.Types.ObjectId, ref: 'Permission' }]
 }, { timestamps: true });
 
-module.exports = mongoose.model('Role', roleSchema);
+export default mongoose.model('Role', roleSchema);

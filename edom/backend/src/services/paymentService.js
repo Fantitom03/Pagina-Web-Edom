@@ -1,4 +1,7 @@
-const PaymentMethod = require('../models/PaymentMethod');
+/*Concepto de servicios, listo para la versión 2.0*/
+
+/*
+import PaymentMethod from '../models/PaymentMethod.js';
 
 class PaymentService {
     async list() {
@@ -34,4 +37,5 @@ class PaymentService {
     }
 }
 
-module.exports = new PaymentService();
+export default new PaymentService();
+*/
